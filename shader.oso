@@ -1,0 +1,73 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -o /tmp/tmp4s9w9wob.oso -I/snap/blender/37/2.82/scripts/addons/cycles/shader
+shader simple_material
+param	color	Diffuse_Color	0.60000002 0.80000001 0.60000002		%read{15,15} %write{2147483647,-1}
+param	float	Noise_Factor	0.5		%read{2147483647,-1} %write{2147483647,-1}
+param	float	scale	0.5		%read{7,7} %write{2147483647,-1}
+param	float	color_factor	0.5		%read{6,6} %write{2147483647,-1}
+param	float	height_factor	0.5		%read{20,20} %write{2147483647,-1}
+param	float	height_scale	1		%read{18,18} %write{2147483647,-1}
+oparam	closure color	BSDF			%read{2147483647,-1} %write{0,17} %initexpr
+oparam	float	height	1		%read{2147483647,-1} %write{20,20}
+global	point	P	%read{7,18} %write{2147483647,-1}
+global	normal	N	%read{0,16} %write{2147483647,-1}
+local	float	noise_c	%read{4,15} %write{1,14}
+local	int	___348_i	%read{4,14} %write{3,14}
+local	color	material_color	%read{17,17} %write{15,15}
+const	string	$const1	"diffuse"		%read{0,16} %write{2147483647,-1}
+const	int	$const2	0		%read{1,1} %write{2147483647,-1}
+const	int	$const3	1		%read{3,14} %write{2147483647,-1}
+const	int	$const4	10		%read{4,4} %write{2147483647,-1}
+temp	int	$tmp1	%read{2,14} %write{3,14}
+temp	float	$tmp2	%read{4,14} %write{4,14}
+temp	float	$tmp3	%read{4,14} %write{4,14}
+temp	float	$tmp4	%read{4,14} %write{4,14}
+temp	point	$tmp5	%read{4,14} %write{4,14}
+temp	float	$tmp6	%read{4,14} %write{4,14}
+temp	point	$tmp7	%read{4,14} %write{4,14}
+temp	float	$tmp8	%read{4,14} %write{4,14}
+temp	int	$tmp9	%read{2147483647,-1} %write{4,14}
+temp	closure color	$tmp10	%read{17,17} %write{16,16}
+temp	float	$tmp11	%read{20,20} %write{19,19}
+temp	point	$tmp12	%read{19,19} %write{18,18}
+code BSDF
+# programming/blender_osl/shader.osl:9
+#     output float height = 1.0)
+	closure		BSDF $const1 N 	%filename{"programming/blender_osl/shader.osl"} %line{9} %argrw{"wrr"}
+code ___main___
+# programming/blender_osl/shader.osl:12
+#     for(int i=1;i<10;i++){
+	assign		noise_c $const2 	%filename{"programming/blender_osl/shader.osl"} %line{12} %argrw{"wr"}
+# programming/blender_osl/shader.osl:13
+#     noise_c += color_factor*i*noise(P*scale/(float)i);    
+	for		$tmp1 4 5 13 15 	%line{13} %argrw{"r"}
+	assign		___348_i $const3 	%argrw{"wr"}
+	lt		$tmp1 ___348_i $const4 	%argrw{"wrr"}
+# programming/blender_osl/shader.osl:14
+#     }
+	assign		$tmp3 ___348_i 	%line{14} %argrw{"wr"}
+	mul		$tmp2 color_factor $tmp3 	%argrw{"wrr"}
+	mul		$tmp5 P scale 	%argrw{"wrr"}
+	assign		$tmp6 ___348_i 	%argrw{"wr"}
+	div		$tmp7 $tmp5 $tmp6 	%argrw{"wrr"}
+	noise		$tmp4 $tmp7 	%argrw{"wr"}
+	mul		$tmp8 $tmp2 $tmp4 	%argrw{"wrr"}
+	add		noise_c noise_c $tmp8 	%argrw{"wrr"}
+# programming/blender_osl/shader.osl:13
+#     noise_c += color_factor*i*noise(P*scale/(float)i);    
+	assign		$tmp9 ___348_i 	%line{13} %argrw{"wr"}
+	add		___348_i ___348_i $const3 	%argrw{"wrr"}
+# programming/blender_osl/shader.osl:16
+#     BSDF = material_color * diffuse(N);
+	mul		material_color noise_c Diffuse_Color 	%line{16} %argrw{"wrr"}
+# programming/blender_osl/shader.osl:17
+#     height=height_factor*noise(P*height_scale);
+	closure		$tmp10 $const1 N 	%line{17} %argrw{"wrr"}
+	mul		BSDF $tmp10 material_color 	%argrw{"wrr"}
+# programming/blender_osl/shader.osl:18
+# }
+	mul		$tmp12 P height_scale 	%line{18} %argrw{"wrr"}
+	noise		$tmp11 $tmp12 	%argrw{"wr"}
+	mul		height height_factor $tmp11 	%argrw{"wrr"}
+	end

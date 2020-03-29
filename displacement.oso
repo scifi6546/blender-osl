@@ -1,0 +1,11 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -o /tmp/tmp15iluad8.oso -I/snap/blender/37/2.82/scripts/addons/cycles/shader
+displacement shift
+global	point	P	%read{0,0} %write{0,0}
+const	point	$const1	1 0 0		%read{0,0} %write{2147483647,-1}
+code ___main___
+# programming/blender_osl/displacement.osl:3
+# }
+	add		P P $const1 	%filename{"programming/blender_osl/displacement.osl"} %line{3} %argrw{"wrr"}
+	end

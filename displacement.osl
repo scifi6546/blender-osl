@@ -1,0 +1,3 @@
+displacement shift() {
+	P = P + point (1, 0, 0);
+}
