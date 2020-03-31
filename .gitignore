@@ -1,0 +1,8 @@
+*.oso
+*.gz
+*.aux
+*.fls
+*.log
+settings.json
+*.fdb_latexmk
+main.pdf
