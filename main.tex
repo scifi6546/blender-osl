@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 
 \title{Programming Languages}
-\author{scifi6546 }
+\author{Nicholas Alexeev}
 \date{March 2020}
 
 
@@ -35,18 +35,19 @@
 \maketitle
 
 \section{Introduction to Open Shading Language}
-The purpose of Open Shading Language (OSL) is to create programs that are used by a raytacing rendering engines to draw scenes. Open Shading Language is used in many rendering engines such as blender's cycles engine and V-Ray. OSL has a different focus then a traditional shading languages such as glsl because OSL outputs materials rather then directly calculating RGB values. The rendering engine then uses the generated materials to calculate the trajectory of rays of light in order to render the correct color for the object. 
+The purpose of Open Shading Language (OSL) is to create programs that are used by a raytacing rendering engines to draw scenes. Open Shading Language is used in many rendering engines such as Blender's Cycles engine and V-Ray. OSL has a different focus then a traditional shading languages such as glsl because OSL outputs materials rather then directly calculating RGB values. The rendering engine then uses the generated materials to calculate the trajectory of rays of light in order to render the correct color for the object. 
 \section{Features}
-OSL has a c like syntax.
+OSL supports parallel execution across many different computation platforms. OSL has manifest typing as types are declared by the programmer. OSL primary form of data output is a closure.
 \section{Execution}
-OSL is ececuted with a SIMD architecture. Each shader outputs a closure that can be run in parallel. The rendering engine then executes the closures to calculate the trajectory of rays of light when they hit a object with the current shader.  Rendering is commonly accelerated using General Purpose Graphics Processing Units (GPGPU). For example Blender uses OpenCL and CUDA to accelerate rendering \cite{blender_gpu}. The output of shader programs are used as input of other programs. In blender the shaders can be combined using a GUI node based system as shown in the figure below. \newline
+OSL is ececuted with a SIMD architecture. Each shader outputs a closure that can be run in parallel. The rendering engine then executes the closures to calculate the trajectory of rays of light when they hit a object with the current shader.  Rendering is commonly accelerated using General Purpose Graphics Processing Units (GPGPU). For example Blender uses OpenCL and CUDA to accelerate rendering \cite{blender_gpu}. The output of shader programs are used as input of other shader programs. In blender the shaders can be combined using a GUI node based system as shown in the figure below. \newline
 \begin{figure}
   \includegraphics[height=10cm]{blender_nodes.png}\newline
   Figure 1. Blender Node System
   \centering
 \end{figure}
 \newline
-The GUI system is then used by artists to generate the desired graphics, such as a wood material for a floor.
+\section{Intended Use Case}
+OSL shaders are intended to be used by artists to shade their 3d models. The shaders can be created by an expert programmer and then tey are imported with a relativly easy to use GUI and they are then combined with other shaders and input sources such as textures and preset constants. OSL is not intended to be used to generate images on its own and instead it is used to inform a rendering engine how materials applied to objects should behave.
 \section{Example Code}
 All of the below examples are shaders that are placed onto a sphere with a single sun light and no global illumination. The code sample below is a simple white diffuse material.
 \begin{lstlisting}
